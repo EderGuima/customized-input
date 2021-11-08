@@ -1,8 +1,8 @@
 {
-  "name": "customized-input",
-  "version": "0.0.1",
+  "name": "my-own-customized-input",
+  "version": "0.0.2",
   "private": false,
-  "description": "Customized Input",
+  "description": "Customized Input with placeholder animation",
   "author": "Éder Guimarães Rodrigues <edergr@yahoo.com.br> | edergr.com",
   "main": "dist/index.js",
   "license": "MIT",

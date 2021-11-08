@@ -87,7 +87,7 @@ interface InputOptions {
     placeholderColor?: string;
 }
 
-class customizedinput extends React.Component<InputOptions, {
+class CustomizedInput extends React.Component<InputOptions, {
     //*                                                              *
     //* ------------------------------------------------------------ *
     //* CONTROLL.....:                                               *
@@ -112,8 +112,9 @@ class customizedinput extends React.Component<InputOptions, {
     //* INPUT_GROUP CSS..:                                           *
     input_group: CSS.Properties = {
         position: "relative",
+        display: "inline-grid",
         margin: this.props.inputGroupMargin !== undefined
-            ? this.props.inputGroupMargin : "10px 0",
+            ? this.props.inputGroupMargin : "10px",
     }
     //*                                                              *
     //* ------------------------------------------------------------ *
@@ -223,6 +224,6 @@ class customizedinput extends React.Component<InputOptions, {
 //*                                                                  *
 //*==================================================================*
 //*                                                                  *
-export default customizedinput;
+export default CustomizedInput;
 //*                                                                  *
 //*==================================================================*

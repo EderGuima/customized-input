@@ -1,1 +1,3 @@
-export * from './customizedInput'
+import CustomizedInput from './myCustomizedInput';
+
+export { CustomizedInput };
