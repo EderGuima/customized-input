@@ -1,0 +1,27 @@
+{
+  "name": "customized-input",
+  "version": "0.0.1",
+  "private": false,
+  "description": "Customized Input",
+  "author": "Éder Guimarães Rodrigues <edergr@yahoo.com.br> | edergr.com",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@types/react": ">=17.0.5",
+    "@types/react-dom": ">=17.0.4",
+    "react": ">=17.0.2",
+    "react-dom": ">=17.0.2",
+    "typescript": ">=4.4.4"
+  },
+  "peerDependencies": {
+    "react": ">=17.0.2",
+    "react-dom": ">=17.0.2"
+  },
+  "files": [
+    "/dist",
+    "package.json"
+  ]
+}
