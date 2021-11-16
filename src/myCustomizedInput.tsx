@@ -1,7 +1,7 @@
 //*==================================================================*
 //*                            EDERGR.COM                            *
 //*------------------------------------------------------------------*
-//*    PROGRAM.......: customizedinput.tsx                           *
+//*    PROGRAM.......: myCustomizedInput.tsx                         *
 //*    DEVELOPER.....: EDER GUIMARAES RODRIGUES                      *
 //*------------------------------------------------------------------*
 //*    OBJECTIVE...: BUILD AN INPUT FIELD WITH CUSTOMIZED PROPERTIES *
@@ -12,10 +12,14 @@ import React from 'react';
 import CSS from 'csstype';
 //*==================================================================*
 //*                                                                  *
-export declare type TypesWorking = 'text' | 'color' | 'date' |
-    'datetime-local' | 'email' | 'file' | 'hidden' | 'month' |
-    'number' | 'password' | 'range' | 'time' | 'url' | 'week'
-
+//* ---------------------------------------------------------------- *
+//* ALLOWED TYPES:                                                   *
+export declare type TypesWorking = 'text' | 'color' | 'date' | 'url' |
+    'datetime-local' | 'email' | 'hidden' | 'time' | 'file' | 'week' |
+    'month' | 'number' | 'password' | 'range' | 'submit' | 'button'
+//*                                                                  *
+//* ---------------------------------------------------------------- *
+//* INTERFACE WITH CUSTOMIZED PROPERTIES:                            *
 interface InputOptions {
     //*                                                              *
     //* ------------------------------------------------------------ *
@@ -26,65 +30,50 @@ interface InputOptions {
     //* ------------------------------------------------------------ *
     //* REQUIRED PROPERTIES FIELDS:                                  *
     //* ------------------------------------------------------------ *
-    //* ID...........: ID TO LINK LABEL X INPUT                      *
     id: string;
-    //*                                                              *
-    //* TYPE.........: INPUT TYPE                                    *
     type: TypesWorking;
     //*                                                              *
     //* ------------------------------------------------------------ *
     //* OPTIONAL PROPERTIES FIELDS:                                  *
     //* ------------------------------------------------------------ *
-    //* PLACEHOLDER..: LABEL PLACEHOLDER                             *
     placeholder?: string;
-    //*                                                              *
-    //* ------------------------------------------------------------ *
-    //* DEFAULTVALUE.: DEFAULT VALUE TO THE INPUT                    *
     defaultValue?: string;
-    //*                                                              *
-    //* ------------------------------------------------------------ *
-    //* DISABLED.....: TRUE DISABLE | FALSE ENABLE - FALSE DEFAULT   *
     disabled?: boolean;
-    //*                                                              *
-    //* ------------------------------------------------------------ *
-    //* READONLY.....: TRUE READ ONLY | FALSE OPEN - FALSE DEFAULT   *
     readOnly?: boolean;
-    //*                                                              *
-    //* ------------------------------------------------------------ *
-    //* MAXLENGTH....: MAX INPUT LENGTH                              *
     maxLength?: number;
-    //*                                                              *
-    //* ------------------------------------------------------------ *
-    //* MINLENGTH....: MIN INPUT LENGTH                              *
     minLength?: number;
-    //*                                                              *
-    //* ------------------------------------------------------------ *
-    //* REQUIRED.....: TRUE REQUIRED | FALSE OPTIONAL - FALSE DEFAULT*          
     required?: boolean;
     //*                                                              *
     //* ------------------------------------------------------------ *
-    //* INPUTHEIGHT..: INPUT HEIGHT                                  *           
-    inputHeight?: string;
-    //*                                                              *
-    //* ------------------------------------------------------------ *
-    //* INPUTWIDTH...: INPUT WIDTH                                   *           
-    inputWidth?: string;
-    //*                                                              *
-    //* ------------------------------------------------------------ *
-    //* INPUTGROUPMARGIN: INPUT GROUP MARGIN                         *         
+    //* INPUT GROUP CUSTOMIZED PROPERTIES:                           *
+    //* ------------------------------------------------------------ *        
     inputGroupMargin?: string;
+    inputGroupDisplay?: string;
     //*                                                              *
     //* ------------------------------------------------------------ *
-    //* INPUTFONTSIZE: INPUT FONTSIZE                                *           
+    //* INPUT CUSTOMIZED PROPERTIES:                                 *
+    //* ------------------------------------------------------------ *            
+    inputHeight?: string;
+    inputWidth?: string;
     inputFontSize?: string;
-    //*                                                              *
-    //* ------------------------------------------------------------ *
-    //* INPUTBORDERRADIUS: INPUT BORDER RADIUS                       *   
     inputBorderRadius?: string;
+    inputFontColor?: string;
+    inputBackgroundColor?: string;
+    inputBorder?: string;
+    inputBorderBottom?: string;
     //*                                                              *
     //* ------------------------------------------------------------ *
-    //* PLACEHOLDERCOLOR: LABEL PLACEHOLDER COLOR                    *           
-    placeholderColor?: string;
+    //* INPUT FOCUSED CUSTOMIZED PROPERTIES:                         *
+    //* ------------------------------------------------------------ *   
+    inputFocusedFontColor?: string;
+    //*                                                              *
+    //* ------------------------------------------------------------ *
+    //* INPUT PLACEHOLDER CUSTOMIZED PROPERTIES:                     *
+    //* ------------------------------------------------------------ *           
+    inputLabelPlaceholderColor?: string;
+    inputLabelFontSize?: string;
+    inputLabelMarginLeft?: string;
+    inputLabelTop?: string;
 }
 
 class CustomizedInput extends React.Component<InputOptions, {
@@ -112,26 +101,24 @@ class CustomizedInput extends React.Component<InputOptions, {
     //* INPUT_GROUP CSS..:                                           *
     input_group: CSS.Properties = {
         position: "relative",
-        display: "inline-grid",
-        margin: this.props.inputGroupMargin !== undefined
-            ? this.props.inputGroupMargin : "10px",
+        display: this.props.inputGroupDisplay !== undefined ? this.props.inputGroupDisplay : "inline-grid",
+        margin: this.props.inputGroupMargin !== undefined ? this.props.inputGroupMargin : "10px",
     }
     //*                                                              *
     //* ------------------------------------------------------------ *
     //* inputLabel CSS..:                                           *
     inputLabel: CSS.Properties = {
         position: "absolute",
-        top: "16px",
-        color: this.props.placeholderColor !== undefined
-            ? this.props.placeholderColor : "#999",
-        fontSize: "20px",
-        marginLeft: "10px",
+        top: this.props.inputLabelTop !== undefined ? this.props.inputLabelTop : "17px",
+        color: this.props.inputLabelPlaceholderColor !== undefined ? this.props.inputLabelPlaceholderColor : "#999",
+        fontSize: this.props.inputLabelFontSize !== undefined ? this.props.inputLabelFontSize : "20px",
+        marginLeft: this.props.inputLabelMarginLeft !== undefined ? this.props.inputLabelMarginLeft : "10px",
     };
     //*                                                              *
     //* ------------------------------------------------------------ *
     //* FOCUSED CSS......:                                           *
     focused: CSS.Properties = {
-        color: "#999",
+        color: this.props.inputFocusedFontColor !== undefined ? this.props.inputFocusedFontColor : '#999',
         fontSize: "15px",
         transition: "transform 150ms, font-size 150ms",
         transform: "translateY(-100%)",
@@ -140,17 +127,16 @@ class CustomizedInput extends React.Component<InputOptions, {
     //* ------------------------------------------------------------ *
     //* INPUT CSS........:                                           *
     input: CSS.Properties = {
-        height: this.props.inputHeight,
-        width: this.props.inputWidth,
-        fontSize: this.props.inputFontSize !== undefined
-            ? this.props.inputFontSize : "20px",
-        paddingLeft: this.props.type === "color" ||
-            this.props.type === "range" ? "0px" : "9px",
-        paddingTop: this.props.type === "color" ||
-            this.props.type === "range" ? "0px" : "15px",
-        border: 0,
-        borderBottom: "1px solid",
-        borderRadius: this.props.inputBorderRadius,
+        height: this.props.inputHeight !== undefined ? this.props.inputHeight : "42px",
+        width: this.props.inputWidth !== undefined ? this.props.inputWidth : "250px",
+        fontSize: this.props.inputFontSize !== undefined ? this.props.inputFontSize : "20px",
+        paddingLeft: this.props.type === 'submit' || this.props.type === 'range' || this.props.type === 'color' || this.props.type === 'button' ? "0px" : "9px",
+        paddingTop: this.props.type === 'submit' || this.props.type === 'range' || this.props.type === 'color' || this.props.type === 'button' ? "0px" : "15px",
+        border: this.props.inputBorder !== undefined ? this.props.inputBorder : 0,
+        borderBottom: this.props.inputBorderBottom !== undefined ? this.props.inputBorderBottom : "1px solid",
+        borderRadius: this.props.inputBorderRadius !== undefined ? this.props.inputBorderRadius : "0",
+        color: this.props.inputFontColor !== undefined ? this.props.inputFontColor : '#999',
+        backgroundColor: this.props.inputBackgroundColor !== undefined ? this.props.inputBackgroundColor : '#FFF'
     }
     //*                                                              *
     //*--------------------------------------------------------------*
@@ -178,33 +164,19 @@ class CustomizedInput extends React.Component<InputOptions, {
         //* HTML RETURN                                              *
         //*----------------------------------------------------------*
         let borderBottom: CSS.Properties = this.state.onFocus
-            ? {
-                borderBottomColor: this.props.placeholderColor
-                    !== undefined
-                    ? this.props.placeholderColor
-                    : "#999"
-            }
-            : {
-                borderBottomColor: this.props.required === true
-                    ? "#F00" : "#999"
-            }
+            ? { borderBottomColor: this.props.inputLabelPlaceholderColor !== undefined ? this.props.inputLabelPlaceholderColor : "#999" }
+            : { borderBottomColor: this.props.required === true ? "#F00" : "#999" }
         return (
             <div style={this.input_group}>
                 <label
                     htmlFor={this.props.id}
-                    // style={label}>
                     style={this.state.onFocus
-                        ? Object.assign({},
-                            this.inputLabel, this.focused
-                        )
+                        ? Object.assign({}, this.inputLabel, this.focused)
                         : this.inputLabel}>
                     {this.props.placeholder}
                 </label>
                 <input
-                    style={Object.assign({},
-                        this.input,
-                        borderBottom
-                    )}
+                    style={Object.assign({}, this.input, borderBottom)}
                     id={this.props.id}
                     onFocus={this.onFocus}
                     onBlur={this.onBlur}
